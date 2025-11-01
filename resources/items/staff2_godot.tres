@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_name = "Staff of Nature"
+description = "A staff carved from ancient oak. Channels natural energy."
+icon_path = "res://Staffs/Staff2Godot.png"
+item_type = 0
+rarity = 0
+health_bonus = 10.0
+damage_bonus = 0.03
+speed_bonus = 5.0
+crit_chance_bonus = 0.0
+crit_damage_bonus = 0.0
+fire_rate_bonus = 0.0
+armor_bonus = 0.03
+cooldown_reduction_bonus = 0.0
+luck_bonus = 0.0
+sell_value = 30

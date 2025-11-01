@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_name = "Mystic Robes"
+description = "Enchanted robes that protect and empower. +Health and +Speed."
+icon_path = ""
+item_type = 2
+rarity = 1
+health_bonus = 50.0
+damage_bonus = 0.0
+speed_bonus = 30.0
+crit_chance_bonus = 0.0
+crit_damage_bonus = 0.0
+fire_rate_bonus = 0.0
+armor_bonus = 0.12
+cooldown_reduction_bonus = 0.0
+luck_bonus = 0.0
+sell_value = 100

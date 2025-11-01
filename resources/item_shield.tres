@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PassiveItemConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/passive_item_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_name = "Sacred Shield"
+item_description = "Permanent +50 max HP"
+color = Color(0.5, 0.5, 1, 1)
+stat_type = "health"
+stat_value = 50.0

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyConfig" load_steps=2 format=3 uid="uid://dwwm4nibm1743"]
+
+[ext_resource type="Script" uid="uid://dbqc34yviqt2x" path="res://scripts/enemy_config.gd" id="1_boss"]
+
+[resource]
+script = ExtResource("1_boss")
+enemy_name = "Boss"
+color = Color(0.8, 0.1, 0.1, 1)
+size = Vector2(80, 80)
+max_health = 800.0
+move_speed = 80.0
+damage_amount = 25.0
+attack_interval = 0.3
+xp_reward = 150

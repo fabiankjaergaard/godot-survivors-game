@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_name = "Staff of Fire"
+description = "A powerful staff infused with flames. Increases damage and fire rate."
+icon_path = ""
+item_type = 0
+rarity = 2
+health_bonus = 0.0
+damage_bonus = 0.25
+speed_bonus = 0.0
+crit_chance_bonus = 0.0
+crit_damage_bonus = 0.0
+fire_rate_bonus = 0.2
+armor_bonus = 0.0
+cooldown_reduction_bonus = 0.0
+luck_bonus = 0.0
+sell_value = 150

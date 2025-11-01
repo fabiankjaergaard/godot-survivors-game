@@ -1,0 +1,199 @@
+[gd_scene load_steps=2 format=3 uid="uid://upgrade_panel"]
+
+[ext_resource type="Script" path="res://scripts/upgrade_panel.gd" id="1_panel"]
+
+[node name="UpgradePanel" type="CanvasLayer"]
+process_mode = 3
+visible = false
+script = ExtResource("1_panel")
+
+[node name="Overlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.85)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(900, 400)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 48
+text = "⬆ LEVEL UP! ⬆"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 18
+text = "Choose your upgrade wisely..."
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="CenterContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Button1" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(270, 200)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CategoryLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button1/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 12
+text = "WEAPON"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button1/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button1/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 24
+text = "Upgrade Name"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button1/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button1/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 16
+text = "Description goes here with more details about the upgrade"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Button2" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(270, 200)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CategoryLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button2/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 12
+text = "STAT"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button2/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button2/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 24
+text = "Upgrade Name"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button2/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button2/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 16
+text = "Description goes here with more details about the upgrade"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Button3" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(270, 200)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CategoryLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button3/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 12
+text = "UTILITY"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button3/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button3/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 24
+text = "Upgrade Name"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button3/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Button3/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 16
+text = "Description goes here with more details about the upgrade"
+horizontal_alignment = 1
+autowrap_mode = 2

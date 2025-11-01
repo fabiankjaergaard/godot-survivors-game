@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyConfig" load_steps=2 format=3 uid="uid://bq8hypqsu8o1j"]
+
+[ext_resource type="Script" uid="uid://dbqc34yviqt2x" path="res://scripts/enemy_config.gd" id="1_sprite"]
+
+[resource]
+script = ExtResource("1_sprite")
+enemy_name = "Sprite"
+color = Color(1, 1, 0, 1)
+size = Vector2(24, 24)
+max_health = 10.0
+move_speed = 200.0
+damage_amount = 3.0
+attack_interval = 0.15
+xp_reward = 8

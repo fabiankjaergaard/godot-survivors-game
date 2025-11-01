@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PassiveItemConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/passive_item_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_name = "Angel Wings"
+item_description = "Permanent +20% movement speed"
+color = Color(0.8, 0.9, 1, 1)
+stat_type = "speed"
+stat_value = 0.2

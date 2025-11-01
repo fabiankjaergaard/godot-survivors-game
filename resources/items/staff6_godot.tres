@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_name = "Staff of the Archmage"
+description = "Once wielded by a legendary wizard. Powerful and balanced."
+icon_path = "res://Staffs/Staff6Godot.png"
+item_type = 0
+rarity = 2
+health_bonus = 30.0
+damage_bonus = 0.18
+speed_bonus = 15.0
+crit_chance_bonus = 0.08
+crit_damage_bonus = 0.20
+fire_rate_bonus = 0.12
+armor_bonus = 0.08
+cooldown_reduction_bonus = 0.15
+luck_bonus = 0.10
+sell_value = 175

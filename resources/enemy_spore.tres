@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyConfig" load_steps=2 format=3 uid="uid://dasokauypt1te"]
+
+[ext_resource type="Script" uid="uid://dbqc34yviqt2x" path="res://scripts/enemy_config.gd" id="1_spore"]
+
+[resource]
+script = ExtResource("1_spore")
+enemy_name = "Spore"
+color = Color(0, 1, 1, 1)
+size = Vector2(36, 36)
+max_health = 25.0
+move_speed = 90.0
+damage_amount = 3.0
+attack_interval = 0.2
+xp_reward = 12

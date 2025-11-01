@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PassiveItemConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/passive_item_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_name = "Crown of Wisdom"
+item_description = "Permanent +25% XP gain"
+color = Color(1, 0.843, 0, 1)
+stat_type = "xp_gain"
+stat_value = 0.25

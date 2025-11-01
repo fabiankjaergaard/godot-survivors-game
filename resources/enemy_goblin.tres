@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyConfig" load_steps=2 format=3 uid="uid://dkom5x6uxtaj4"]
+
+[ext_resource type="Script" uid="uid://dbqc34yviqt2x" path="res://scripts/enemy_config.gd" id="1_goblin"]
+
+[resource]
+script = ExtResource("1_goblin")
+enemy_name = "Goblin"
+color = Color(0, 1, 0, 1)
+damage_amount = 5.0
+attack_interval = 0.2

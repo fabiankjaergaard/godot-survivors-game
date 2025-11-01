@@ -1,0 +1,659 @@
+[gd_scene load_steps=7 format=3 uid="uid://bfjrrna8reuff"]
+
+[ext_resource type="Script" uid="uid://d11r315myf6r7" path="res://scripts/character_screen.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://demkkcgxhqsam" path="res://Wizard/WizardGodot.png" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.1, 0.1, 0.12, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.35, 0.2, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle_float"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(300, 315), Vector2(300, 305), Vector2(300, 315)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.12, 0.12), Vector2(0.13, 0.13), Vector2(0.12, 0.12)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1"]
+_data = {
+&"idle_float": SubResource("Animation_idle")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_GearSlot"]
+bg_color = Color(0.15, 0.15, 0.18, 0.9)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.5, 0.4, 0.25, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[node name="CharacterScreen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.07, 1)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="TitleLabel" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 90.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 56
+text = "👤 CHARACTER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_colors/font_hover_color = Color(1, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 40
+text = "✖"
+
+[node name="Separator1" type="ColorRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 100.0
+offset_bottom = 105.0
+grow_horizontal = 2
+color = Color(0.4, 0.35, 0.2, 0.5)
+
+[node name="StatsPanel" type="Panel" parent="Panel"]
+layout_mode = 1
+offset_left = 50.0
+offset_top = 600.0
+offset_right = 550.0
+offset_bottom = 1050.0
+
+[node name="StatsContainer" type="VBoxContainer" parent="Panel/StatsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="StatsTitle" type="Label" parent="Panel/StatsPanel/StatsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 32
+text = "📊 TOTAL STATS"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="Panel/StatsPanel/StatsContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="HealthRow" type="HBoxContainer" parent="Panel/StatsPanel/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HealthLabel" type="Label" parent="Panel/StatsPanel/StatsContainer/HealthRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 20
+text = "❤️ HP:"
+
+[node name="HealthBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/HealthRow"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="HealthValue" type="Label" parent="Panel/StatsPanel/StatsContainer/HealthRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 18
+text = "100 / 100"
+horizontal_alignment = 2
+
+[node name="DamageRow" type="HBoxContainer" parent="Panel/StatsPanel/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DamageLabel" type="Label" parent="Panel/StatsPanel/StatsContainer/DamageRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.6, 0.3, 1)
+theme_override_font_sizes/font_size = 20
+text = "⚔️ Damage:"
+
+[node name="DamageBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/DamageRow"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 300.0
+value = 100.0
+show_percentage = false
+
+[node name="DamageValue" type="Label" parent="Panel/StatsPanel/StatsContainer/DamageRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.6, 0.3, 1)
+theme_override_font_sizes/font_size = 18
+text = "100%"
+horizontal_alignment = 2
+
+[node name="SpeedRow" type="HBoxContainer" parent="Panel/StatsPanel/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SpeedLabel" type="Label" parent="Panel/StatsPanel/StatsContainer/SpeedRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "⚡ Speed:"
+
+[node name="SpeedBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/SpeedRow"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 400.0
+value = 200.0
+show_percentage = false
+
+[node name="SpeedValue" type="Label" parent="Panel/StatsPanel/StatsContainer/SpeedRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "200"
+horizontal_alignment = 2
+
+[node name="CritRow" type="HBoxContainer" parent="Panel/StatsPanel/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CritLabel" type="Label" parent="Panel/StatsPanel/StatsContainer/CritRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.3, 1)
+theme_override_font_sizes/font_size = 20
+text = "💥 Crit:"
+
+[node name="CritBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/CritRow"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+value = 5.0
+show_percentage = false
+
+[node name="CritValue" type="Label" parent="Panel/StatsPanel/StatsContainer/CritRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.3, 1)
+theme_override_font_sizes/font_size = 18
+text = "5.0% (x2.0)"
+horizontal_alignment = 2
+
+[node name="FireRateRow" type="HBoxContainer" parent="Panel/StatsPanel/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="FireRateLabel" type="Label" parent="Panel/StatsPanel/StatsContainer/FireRateRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.5, 0.2, 1)
+theme_override_font_sizes/font_size = 20
+text = "🔫 Fire Rate:"
+
+[node name="FireRateBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/FireRateRow"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 200.0
+value = 100.0
+show_percentage = false
+
+[node name="FireRateValue" type="Label" parent="Panel/StatsPanel/StatsContainer/FireRateRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.5, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+text = "100%"
+horizontal_alignment = 2
+
+[node name="ArmorRow" type="HBoxContainer" parent="Panel/StatsPanel/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ArmorLabel" type="Label" parent="Panel/StatsPanel/StatsContainer/ArmorRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "🛡️ Armor:"
+
+[node name="ArmorBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/ArmorRow"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 50.0
+value = 0.0
+show_percentage = false
+
+[node name="ArmorValue" type="Label" parent="Panel/StatsPanel/StatsContainer/ArmorRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "0%"
+horizontal_alignment = 2
+
+[node name="CooldownRow" type="HBoxContainer" parent="Panel/StatsPanel/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CooldownLabel" type="Label" parent="Panel/StatsPanel/StatsContainer/CooldownRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "🔄 Cooldown:"
+
+[node name="CooldownBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/CooldownRow"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 50.0
+value = 0.0
+show_percentage = false
+
+[node name="CooldownValue" type="Label" parent="Panel/StatsPanel/StatsContainer/CooldownRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "0%"
+horizontal_alignment = 2
+
+[node name="LuckRow" type="HBoxContainer" parent="Panel/StatsPanel/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LuckLabel" type="Label" parent="Panel/StatsPanel/StatsContainer/LuckRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
+theme_override_font_sizes/font_size = 20
+text = "🍀 Luck:"
+
+[node name="LuckBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/LuckRow"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+value = 0.0
+show_percentage = false
+
+[node name="LuckValue" type="Label" parent="Panel/StatsPanel/StatsContainer/LuckRow"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
+theme_override_font_sizes/font_size = 18
+text = "0%"
+horizontal_alignment = 2
+
+[node name="CharacterSprite" type="Sprite2D" parent="Panel"]
+position = Vector2(300, 320)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/CharacterSprite"]
+libraries = {
+&"": SubResource("AnimationLibrary_1")
+}
+autoplay = "idle_float"
+
+[node name="CharacterLabel" type="Label" parent="Panel"]
+layout_mode = 1
+offset_left = 200.0
+offset_top = 375.0
+offset_right = 400.0
+offset_bottom = 400.0
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 16
+text = "🧙 WIZARD"
+horizontal_alignment = 1
+
+[node name="GearTitle" type="Label" parent="Panel"]
+layout_mode = 1
+offset_left = 50.0
+offset_top = 130.0
+offset_right = 550.0
+offset_bottom = 170.0
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 28
+text = "⚔️ EQUIPMENT"
+horizontal_alignment = 1
+
+[node name="WeaponSlot" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+offset_left = 100.0
+offset_top = 200.0
+offset_right = 170.0
+offset_bottom = 270.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
+text = "⚔️"
+
+[node name="HelmetSlot" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+offset_left = 100.0
+offset_top = 278.0
+offset_right = 170.0
+offset_bottom = 348.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
+text = "🎩"
+
+[node name="ChestSlot" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+offset_left = 100.0
+offset_top = 356.0
+offset_right = 170.0
+offset_bottom = 426.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
+text = "👔"
+
+[node name="GlovesSlot" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+offset_left = 100.0
+offset_top = 434.0
+offset_right = 170.0
+offset_bottom = 504.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
+text = "🧤"
+
+[node name="LegsSlot" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+offset_left = 100.0
+offset_top = 512.0
+offset_right = 170.0
+offset_bottom = 582.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
+text = "👖"
+
+[node name="AmuletSlot" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+offset_left = 430.0
+offset_top = 200.0
+offset_right = 500.0
+offset_bottom = 270.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
+text = "📿"
+
+[node name="Ring1Slot" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+offset_left = 430.0
+offset_top = 278.0
+offset_right = 500.0
+offset_bottom = 348.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
+text = "💍"
+
+[node name="Ring2Slot" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+offset_left = 430.0
+offset_top = 356.0
+offset_right = 500.0
+offset_bottom = 426.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
+text = "💍"
+
+[node name="ShoesSlot" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+offset_left = 430.0
+offset_top = 434.0
+offset_right = 500.0
+offset_bottom = 504.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
+text = "👞"
+
+[node name="BeltSlot" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+offset_left = 430.0
+offset_top = 512.0
+offset_right = 500.0
+offset_bottom = 582.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
+theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
+text = "🔰"
+
+[node name="ItemInfoPanel" type="Panel" parent="Panel"]
+layout_mode = 1
+offset_left = 570.0
+offset_top = 130.0
+offset_right = 1050.0
+offset_bottom = 1050.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="ItemInfoContainer" type="VBoxContainer" parent="Panel/ItemInfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="ItemTitle" type="Label" parent="Panel/ItemInfoPanel/ItemInfoContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 28
+text = "⚔️ ITEM COMPARISON"
+horizontal_alignment = 1
+
+[node name="ItemName" type="Label" parent="Panel/ItemInfoPanel/ItemInfoContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 22
+text = "Select an item to view details"
+horizontal_alignment = 1
+
+[node name="ItemDescription" type="Label" parent="Panel/ItemInfoPanel/ItemInfoContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 15
+autowrap_mode = 3
+horizontal_alignment = 1
+
+[node name="ItemStats" type="RichTextLabel" parent="Panel/ItemInfoPanel/ItemInfoContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="ActionButton" type="Button" parent="Panel/ItemInfoPanel/ItemInfoContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "EQUIP"
+
+[node name="InventoryPanel" type="Panel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -850.0
+offset_top = 130.0
+offset_right = -30.0
+offset_bottom = 1050.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="InventoryContainer" type="VBoxContainer" parent="Panel/InventoryPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 10.0
+offset_right = -15.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="InventoryTitle" type="Label" parent="Panel/InventoryPanel/InventoryContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 22
+text = "🎒 INVENTORY"
+
+[node name="InventoryScroll" type="ScrollContainer" parent="Panel/InventoryPanel/InventoryContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0

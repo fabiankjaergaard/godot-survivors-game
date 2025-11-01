@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_name = "Staff of Cosmic Power"
+description = "Forged from stardust and chaos energy. Unmatched magical prowess."
+icon_path = "res://Staffs/Staff7Godot.png"
+item_type = 0
+rarity = 3
+health_bonus = 50.0
+damage_bonus = 0.30
+speed_bonus = 20.0
+crit_chance_bonus = 0.15
+crit_damage_bonus = 0.40
+fire_rate_bonus = 0.20
+armor_bonus = 0.10
+cooldown_reduction_bonus = 0.20
+luck_bonus = 0.15
+sell_value = 500

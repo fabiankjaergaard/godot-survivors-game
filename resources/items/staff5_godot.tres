@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_name = "Staff of Shadows"
+description = "A dark staff imbued with shadow magic. High damage output."
+icon_path = "res://Staffs/Staff5Godot.png"
+item_type = 0
+rarity = 2
+health_bonus = 20.0
+damage_bonus = 0.20
+speed_bonus = 0.0
+crit_chance_bonus = 0.10
+crit_damage_bonus = 0.25
+fire_rate_bonus = 0.15
+armor_bonus = 0.05
+cooldown_reduction_bonus = 0.10
+luck_bonus = 0.0
+sell_value = 150

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyConfig" load_steps=2 format=3 uid="uid://blvxqce7mvk7u"]
+
+[ext_resource type="Script" uid="uid://dbqc34yviqt2x" path="res://scripts/enemy_config.gd" id="1_wraith"]
+
+[resource]
+script = ExtResource("1_wraith")
+enemy_name = "Wraith"
+color = Color(0.545, 0, 1, 1)
+size = Vector2(28, 28)
+max_health = 15.0
+move_speed = 80.0
+damage_amount = 4.0
+attack_interval = 0.2
+xp_reward = 12

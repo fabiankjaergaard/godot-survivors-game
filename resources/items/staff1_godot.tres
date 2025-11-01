@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_name = "Staff of Embers"
+description = "A simple wooden staff with a faint glow. Good for beginners."
+icon_path = "res://Staffs/Staff1Godot.png"
+item_type = 0
+rarity = 0
+health_bonus = 0.0
+damage_bonus = 0.05
+speed_bonus = 0.0
+crit_chance_bonus = 0.0
+crit_damage_bonus = 0.0
+fire_rate_bonus = 0.05
+armor_bonus = 0.0
+cooldown_reduction_bonus = 0.0
+luck_bonus = 0.0
+sell_value = 25

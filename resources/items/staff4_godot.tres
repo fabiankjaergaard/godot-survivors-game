@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_name = "Staff of Lightning"
+description = "Crackling with electrical energy. Boosts critical strikes."
+icon_path = "res://Staffs/Staff4Godot.png"
+item_type = 0
+rarity = 1
+health_bonus = 15.0
+damage_bonus = 0.12
+speed_bonus = 10.0
+crit_chance_bonus = 0.08
+crit_damage_bonus = 0.15
+fire_rate_bonus = 0.10
+armor_bonus = 0.0
+cooldown_reduction_bonus = 0.0
+luck_bonus = 0.05
+sell_value = 80

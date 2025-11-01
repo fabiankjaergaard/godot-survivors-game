@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CharacterConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/character_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+character_id = "hunter"
+character_name = "Hunter"
+description = "Starts with extra weapon and larger pickup radius"
+icon = "🏹"
+base_health = 90.0
+base_speed = 210.0
+base_damage_mult = 1.0
+start_with_extra_weapon = true
+crit_chance_bonus = 0.0
+crit_damage_mult = 1.5
+dash_cooldown_mult = 0.9
+pickup_radius_bonus = 30.0
+xp_gain_mult = 1.0
+is_unlocked_by_default = false
+unlock_cost = 600
+unlock_requirement = "Collect 5000 coins"

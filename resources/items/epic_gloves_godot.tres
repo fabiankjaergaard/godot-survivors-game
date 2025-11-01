@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_name = "Epic Gloves Godot"
+description = "Legendary gloves forged in the fires of Godot. Grants immense power to the wielder."
+icon_path = "res://Items/Gloves/EpicGlovesGodot.png"
+item_type = 3
+rarity = 3
+health_bonus = 50.0
+damage_bonus = 0.25
+speed_bonus = 15.0
+crit_chance_bonus = 0.12
+crit_damage_bonus = 0.3
+fire_rate_bonus = 0.15
+armor_bonus = 0.08
+cooldown_reduction_bonus = 0.2
+luck_bonus = 0.1
+sell_value = 500
