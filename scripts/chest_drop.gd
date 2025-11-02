@@ -14,7 +14,7 @@ func _ready():
 	var chest_texture = load("res://RewardChestGodot.png")
 	if chest_texture:
 		sprite.texture = chest_texture
-		sprite.scale = Vector2(0.5, 0.5)  # Adjust size as needed
+		sprite.scale = Vector2(0.08, 0.08)  # Much smaller scale for 1024x1024 image
 
 func _physics_process(delta):
 	# Add a subtle float animation

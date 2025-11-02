@@ -32,11 +32,6 @@ var health_drop_chance: float = 0.15  # 15% chance to drop health
 # Treasure chest system
 var treasure_chest_scene = preload("res://scenes/treasure_chest.tscn")
 
-# Gear drop system
-var gear_pickup_scene = preload("res://scenes/gear_pickup.tscn")
-var gear_drop_chance: float = 0.08  # 8% chance for regular enemies
-var elite_gear_drop_chance: float = 0.35  # 35% chance for elite enemies
-
 # Particle effects
 var damage_particles = preload("res://scenes/damage_particles.tscn")
 var death_particles = preload("res://scenes/death_particles.tscn")
@@ -195,18 +190,8 @@ func die():
 		get_parent().add_child(chest)
 		print("Treasure chest dropped from elite!")
 
-	# Chance to drop gear items
-	var drop_chance = elite_gear_drop_chance if is_elite else gear_drop_chance
-	if randf() < drop_chance:
-		var gear_pickup = gear_pickup_scene.instantiate()
-		gear_pickup.position = position + Vector2(randf_range(-20, 20), randf_range(-20, 20))  # Slight offset
-
-		# Generate random gear item
-		var random_item = GearGenerator.generate_random_item()
-		gear_pickup.set_item(random_item)
-
-		get_parent().add_child(gear_pickup)
-		print("Gear dropped: %s (%s)" % [random_item.item_name, random_item.get_rarity_name()])
+	# REMOVED: Gear items should ONLY drop from reward chests, not from enemies directly
+	# This ensures players get gear through the chest opening system
 
 	queue_free()  # Remove enemy from scene
 
@@ -257,26 +242,52 @@ func load_enemy_sprite():
 		return
 
 	var sprite = $Sprite2D
+	var enemy_texture = null
 
-	# Check if this is a goblin enemy (based on color or enemy name)
-	# Goblins are typically green
-	if config.color.is_equal_approx(Color(0, 1, 0, 1)) or config.color.g > 0.8:
-		# Load Enemy1Godot sprite for goblin
-		var enemy_texture = load("res://Enemy1Godot.png")
-		if enemy_texture:
-			sprite.texture = enemy_texture
-			# Scale to match config size (1024px -> config.size)
-			var scale_factor = config.size / Vector2(1024, 1024)
-			sprite.scale = scale_factor
-			print("Loaded Enemy1Godot sprite for goblin!")
-		else:
-			# Fallback to colored square
+	# Base scale multiplier to make sprites bigger (2x larger than before)
+	var base_scale_multiplier = 2.0
+
+	# Load sprite based on enemy name
+	match config.enemy_name:
+		"Goblin", "Sprite":
+			# Common enemies - green goblin & yellow sprite
+			enemy_texture = load("res://Enemy/CommonEnemyGodot.png")
+			if enemy_texture:
+				sprite.texture = enemy_texture
+				var scale_factor = (config.size / Vector2(1024, 1024)) * base_scale_multiplier
+				sprite.scale = scale_factor
+				print("Loaded CommonEnemyGodot sprite for %s!" % config.enemy_name)
+
+		"Ogre":
+			# Rare enemy - red ogre
+			enemy_texture = load("res://Enemy/RareEnemyGodot.png")
+			if enemy_texture:
+				sprite.texture = enemy_texture
+				var scale_factor = (config.size / Vector2(1024, 1024)) * base_scale_multiplier
+				sprite.scale = scale_factor
+				print("Loaded RareEnemyGodot sprite for Ogre!")
+
+		"Wraith", "Spore":
+			# Epic enemies - purple wraith & cyan spore
+			enemy_texture = load("res://Enemy/EpicEnemyGodot.png")
+			if enemy_texture:
+				sprite.texture = enemy_texture
+				var scale_factor = (config.size / Vector2(1024, 1024)) * base_scale_multiplier
+				sprite.scale = scale_factor
+				print("Loaded EpicEnemyGodot sprite for %s!" % config.enemy_name)
+
+		_:
+			# Boss or other enemies use colored placeholder
 			sprite.texture = create_placeholder_texture(config.color, config.size)
 			sprite.scale = Vector2(1, 1)
-	else:
-		# Other enemies use placeholder
+			print("Using placeholder texture for %s" % config.enemy_name)
+			return
+
+	# Fallback to colored square if texture failed to load
+	if not enemy_texture:
 		sprite.texture = create_placeholder_texture(config.color, config.size)
 		sprite.scale = Vector2(1, 1)
+		print("Failed to load sprite for %s, using placeholder" % config.enemy_name)
 
 func create_placeholder_texture(color: Color, size: Vector2) -> ImageTexture:
 	# Create a simple colored square as placeholder

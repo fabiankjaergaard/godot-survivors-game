@@ -39,10 +39,16 @@ extends Control
 @onready var item_description_label = $Panel/ItemInfoPanel/ItemInfoContainer/ItemDescription
 @onready var item_stats_label = $Panel/ItemInfoPanel/ItemInfoContainer/ItemStats
 @onready var action_button = $Panel/ItemInfoPanel/ItemInfoContainer/ActionButton
+@onready var item_info_container = $Panel/ItemInfoPanel/ItemInfoContainer
 
 # Reference to player's equipment manager
 var equipment_manager: EquipmentManager = null
 var player_reference: Node = null  # Direct player reference
+
+# Dynamic comparison nodes
+var comparison_container: VBoxContainer = null
+var equipped_item_box: HBoxContainer = null
+var new_item_box: HBoxContainer = null
 
 # Currently selected item for display
 var selected_item: Item = null
@@ -252,20 +258,20 @@ func create_inventory_tabs():
 	tab_container.add_child(tab_all)
 
 	tab_weapons = Button.new()
-	tab_weapons.text = "⚔️ Weapons"
-	tab_weapons.custom_minimum_size = Vector2(120, 35)
+	tab_weapons.text = "Weapons"
+	tab_weapons.custom_minimum_size = Vector2(100, 35)
 	tab_weapons.pressed.connect(func(): _on_tab_pressed(InventoryFilter.WEAPONS))
 	tab_container.add_child(tab_weapons)
 
 	tab_armor = Button.new()
-	tab_armor.text = "🛡️ Armor"
-	tab_armor.custom_minimum_size = Vector2(100, 35)
+	tab_armor.text = "Armor"
+	tab_armor.custom_minimum_size = Vector2(80, 35)
 	tab_armor.pressed.connect(func(): _on_tab_pressed(InventoryFilter.ARMOR))
 	tab_container.add_child(tab_armor)
 
 	tab_accessories = Button.new()
-	tab_accessories.text = "💍 Accessories"
-	tab_accessories.custom_minimum_size = Vector2(140, 35)
+	tab_accessories.text = "Accessories"
+	tab_accessories.custom_minimum_size = Vector2(120, 35)
 	tab_accessories.pressed.connect(func(): _on_tab_pressed(InventoryFilter.ACCESSORIES))
 	tab_container.add_child(tab_accessories)
 
@@ -423,26 +429,26 @@ func update_equipment_slot(slot_button: Button, item: Item):
 		# Clear any icon from previous item
 		slot_button.icon = null
 
-		# Restore original emoji from scene (without extra text)
+		# Restore original Unicode symbols from scene
 		var original_text = ""
 		if slot_button == weapon_slot:
-			original_text = "⚔️"
+			original_text = "⚔"
 		elif slot_button == helmet_slot:
-			original_text = "🎩"
+			original_text = "⛑"
 		elif slot_button == chest_slot:
-			original_text = "👔"
+			original_text = "◈"
 		elif slot_button == gloves_slot:
-			original_text = "🧤"
+			original_text = "✊"
 		elif slot_button == legs_slot:
-			original_text = "👖"
+			original_text = "▼"
 		elif slot_button == shoes_slot:
-			original_text = "👞"
+			original_text = "▲"
 		elif slot_button == ring1_slot:
-			original_text = "💍"
+			original_text = "◯"
 		elif slot_button == ring2_slot:
-			original_text = "💍"
+			original_text = "◯"
 		elif slot_button == amulet_slot:
-			original_text = "📿"
+			original_text = "◆"
 
 		slot_button.text = original_text
 		slot_button.modulate = Color(0.5, 0.5, 0.5, 1)
@@ -705,16 +711,15 @@ func show_item_info(item: Item, from_inventory: bool = true):
 	selected_item = item
 	selected_from_inventory = from_inventory
 
-	# Set item name with rarity color
+	# Set title
 	if item_name_label:
-		item_name_label.text = item.item_name + " (" + item.get_rarity_name() + ")"
-		item_name_label.add_theme_color_override("font_color", item.get_rarity_color())
+		item_name_label.text = "⚖️ ITEM COMPARISON"
 
-	# Set description
+	# Hide description label (we'll use custom layout)
 	if item_description_label:
-		item_description_label.text = item.description
+		item_description_label.visible = false
 
-	# Build stats text with comparison
+	# Build visual comparison
 	var stats_text = ""
 
 	# If selecting from inventory, compare with equipped item
@@ -739,32 +744,20 @@ func show_item_info(item: Item, from_inventory: bool = true):
 			Item.ItemType.AMULET:
 				equipped_item = equipment_manager.equipped_amulet
 
-		# Show comparison
-		stats_text += "[b]NEW ITEM:[/b]\n"
-		stats_text += get_item_stats_text(item)
-
+		# Visual comparison layout
 		if equipped_item:
-			stats_text += "\n[b]CURRENTLY EQUIPPED:[/b]\n"
-			stats_text += get_item_stats_text(equipped_item)
-
-			stats_text += "\n[b]DIFFERENCE:[/b]\n"
-			stats_text += get_stat_comparison_text(item, equipped_item)
+			stats_text += build_visual_comparison(equipped_item, item)
 		else:
-			stats_text += "\n[color=#FFD700]No item currently equipped in this slot[/color]"
+			# No item equipped - just show the new item
+			stats_text += "[center][color=#FFD700]⚠️ NO ITEM EQUIPPED IN THIS SLOT[/color][/center]\n\n"
+			stats_text += "[center][b][color=%s]%s[/color][/b][/center]\n" % [item.get_rarity_color().to_html(), item.item_name]
+			stats_text += "[center][color=#888888](%s)[/color][/center]\n\n" % item.get_rarity_name()
+			stats_text += get_item_stats_text(item)
 	else:
-		# When clicking on equipped gear, show comparison with a mock item
-		var mock_item = GearGenerator.generate_random_item()
-		mock_item.item_type = item.item_type  # Same type as equipped
-		GearGenerator.generate_stats(mock_item)  # Regenerate stats
-
-		stats_text += "[b]CURRENTLY EQUIPPED:[/b]\n"
+		# Just show equipped item stats (no comparison)
+		stats_text += "[center][b][color=%s]%s[/color][/b][/center]\n" % [item.get_rarity_color().to_html(), item.item_name]
+		stats_text += "[center][color=#888888](%s)[/color][/center]\n\n" % item.get_rarity_name()
 		stats_text += get_item_stats_text(item)
-		stats_text += "\n[b]EXAMPLE ALTERNATIVE:[/b]\n"
-		stats_text += get_item_stats_text(mock_item)
-
-		stats_text += "\n[b]COMPARISON:[/b]\n"
-		stats_text += "[color=#888888](Shows what would change if you had this alternative)[/color]\n"
-		stats_text += get_stat_comparison_text(mock_item, item)
 
 	if item_stats_label:
 		item_stats_label.text = stats_text if stats_text != "" else "No stat bonuses"
@@ -777,26 +770,375 @@ func show_item_info(item: Item, from_inventory: bool = true):
 		else:
 			action_button.text = "📤 UNEQUIP"
 
+func build_visual_comparison(equipped: Item, new: Item) -> String:
+	"""Builds a visual comparison with item images"""
+	var text = ""
+
+	# Clear any old comparison containers
+	clear_comparison_nodes()
+
+	# Create main comparison container (if not exists)
+	if not comparison_container:
+		comparison_container = VBoxContainer.new()
+		comparison_container.name = "ComparisonContainer"
+		comparison_container.add_theme_constant_override("separation", 20)  # More vertical spacing
+		# Insert after ItemName but before ItemStats
+		var insert_index = item_name_label.get_index() + 1
+		item_info_container.add_child(comparison_container)
+		item_info_container.move_child(comparison_container, insert_index)
+
+	# === EQUIPPED ITEM BOX ===
+	var equipped_box = create_item_comparison_box(equipped, true)
+	comparison_container.add_child(equipped_box)
+
+	# === ARROW SEPARATOR ===
+	var arrow_container = VBoxContainer.new()
+	arrow_container.add_theme_constant_override("separation", 5)
+
+	var spacer_top = Control.new()
+	spacer_top.custom_minimum_size = Vector2(0, 10)
+	arrow_container.add_child(spacer_top)
+
+	var arrow_label = Label.new()
+	arrow_label.text = "⬇ ⬇ ⬇"
+	arrow_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	arrow_label.add_theme_font_size_override("font_size", 28)
+	arrow_label.add_theme_color_override("font_color", Color(1, 0.85, 0.4))
+	arrow_container.add_child(arrow_label)
+
+	var spacer_bottom = Control.new()
+	spacer_bottom.custom_minimum_size = Vector2(0, 10)
+	arrow_container.add_child(spacer_bottom)
+
+	comparison_container.add_child(arrow_container)
+
+	# === NEW ITEM BOX ===
+	var new_box = create_item_comparison_box(new, false, equipped)
+	comparison_container.add_child(new_box)
+
+	# Hide the regular stats label since we're using custom layout
+	if item_stats_label:
+		item_stats_label.visible = false
+
+	return ""  # Return empty since we're building nodes, not text
+
+func create_item_comparison_box(item: Item, is_equipped: bool, compare_to: Item = null) -> PanelContainer:
+	"""Creates a visual box with item icon + stats"""
+	var panel = PanelContainer.new()
+
+	# Style the panel with more padding
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.15, 0.15, 0.2, 0.9)
+	style.border_width_left = 3
+	style.border_width_top = 3
+	style.border_width_right = 3
+	style.border_width_bottom = 3
+	style.border_color = Color(1, 0.85, 0.4) if is_equipped else Color(0, 1, 0.5)
+	style.corner_radius_top_left = 8
+	style.corner_radius_top_right = 8
+	style.corner_radius_bottom_left = 8
+	style.corner_radius_bottom_right = 8
+	# Add more padding inside the box
+	style.content_margin_left = 12
+	style.content_margin_right = 12
+	style.content_margin_top = 12
+	style.content_margin_bottom = 12
+	panel.add_theme_stylebox_override("panel", style)
+
+	# Main HBox (icon on left, stats on right)
+	var hbox = HBoxContainer.new()
+	hbox.add_theme_constant_override("separation", 20)  # More space between icon and stats
+	panel.add_child(hbox)
+
+	# === LEFT: Item Icon ===
+	var icon_container = VBoxContainer.new()
+	icon_container.custom_minimum_size = Vector2(80, 80)
+	hbox.add_child(icon_container)
+
+	# Title label
+	var title_label = Label.new()
+	title_label.text = "EQUIPPED" if is_equipped else "NEW ITEM"
+	title_label.add_theme_font_size_override("font_size", 12)
+	title_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
+	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	icon_container.add_child(title_label)
+
+	# Item icon (TextureRect)
+	var icon = TextureRect.new()
+	icon.custom_minimum_size = Vector2(64, 64)
+	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+
+	# Load item texture based on type
+	var texture = get_item_texture(item)
+	if texture:
+		icon.texture = texture
+	icon_container.add_child(icon)
+
+	# === RIGHT: Stats ===
+	var stats_container = VBoxContainer.new()
+	stats_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	stats_container.add_theme_constant_override("separation", 8)  # Space between elements
+	hbox.add_child(stats_container)
+
+	# Item name
+	var name_label = Label.new()
+	name_label.text = item.item_name
+	name_label.add_theme_font_size_override("font_size", 18)
+	name_label.add_theme_color_override("font_color", item.get_rarity_color())
+	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	stats_container.add_child(name_label)
+
+	# Rarity
+	var rarity_label = Label.new()
+	rarity_label.text = item.get_rarity_name()
+	rarity_label.add_theme_font_size_override("font_size", 13)
+	rarity_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
+	stats_container.add_child(rarity_label)
+
+	# Spacer
+	var spacer = Control.new()
+	spacer.custom_minimum_size = Vector2(0, 5)
+	stats_container.add_child(spacer)
+
+	# Stats (with color coding if comparing)
+	var stats_label = RichTextLabel.new()
+	stats_label.bbcode_enabled = true
+	stats_label.fit_content = true
+	stats_label.scroll_active = false
+	stats_label.custom_minimum_size = Vector2(250, 120)  # More space for stats
+	stats_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
+
+	if compare_to:
+		stats_label.text = get_item_stats_text_with_diff(item, compare_to)
+	else:
+		stats_label.text = get_item_stats_text_compact(item)
+
+	stats_container.add_child(stats_label)
+
+	return panel
+
+func get_item_texture(item: Item) -> Texture2D:
+	"""Gets the texture for an item based on its type"""
+	var path = ""
+
+	# For weapons (staffs), use the staff sprites
+	if item.item_type == Item.ItemType.WEAPON:
+		# Try to match item name to staff texture
+		if "Nature" in item.item_name:
+			path = "res://Staffs/Staff2Godot.png"
+		elif "Lightning" in item.item_name or "Embers" in item.item_name:
+			path = "res://Staffs/Staff1Godot.png"
+		elif "Archmage" in item.item_name:
+			path = "res://Staffs/Staff3Godot.png"
+		elif "Cosmic" in item.item_name:
+			path = "res://Staffs/Staff4Godot.png"
+		elif "Fire" in item.item_name:
+			path = "res://Staffs/Staff5Godot.png"
+		elif "Ice" in item.item_name:
+			path = "res://Staffs/Staff6Godot.png"
+		elif "Shadow" in item.item_name:
+			path = "res://Staffs/Staff7Godot.png"
+		else:
+			path = "res://Staffs/Staff1Godot.png"  # Default staff
+
+	# For other items, use placeholder for now
+	elif item.item_type == Item.ItemType.HELMET:
+		path = "res://Items/HelmetGodot.png"
+	elif item.item_type == Item.ItemType.GLOVES:
+		path = "res://Items/GlovesGodot.png"
+	elif item.item_type == Item.ItemType.RING:
+		path = "res://Items/RingGodot.png"
+	elif item.item_type == Item.ItemType.SHOES:
+		path = "res://Items/BootsGodot.png"
+
+	if path != "" and ResourceLoader.exists(path):
+		return load(path)
+
+	return null
+
+func clear_comparison_nodes():
+	"""Remove old comparison nodes"""
+	if comparison_container:
+		comparison_container.queue_free()
+		comparison_container = null
+
+func get_item_stats_text_compact(item: Item) -> String:
+	"""Compact stat display without colors"""
+	var text = ""
+	if item.health_bonus > 0:
+		text += "   [HP] +%.0f\n" % item.health_bonus
+	if item.damage_bonus > 0:
+		text += "   [DMG] +%.1f%%\n" % (item.damage_bonus * 100)
+	if item.speed_bonus > 0:
+		text += "   [SPD] +%.0f\n" % item.speed_bonus
+	if item.crit_chance_bonus > 0:
+		text += "   [CRIT] +%.1f%%\n" % (item.crit_chance_bonus * 100)
+	if item.crit_damage_bonus > 0:
+		text += "   [CRIT DMG] +%.1f%%\n" % (item.crit_damage_bonus * 100)
+	if item.fire_rate_bonus > 0:
+		text += "   [FIRE RATE] +%.1f%%\n" % (item.fire_rate_bonus * 100)
+	if item.armor_bonus > 0:
+		text += "   [ARMOR] +%.1f%%\n" % (item.armor_bonus * 100)
+	if item.cooldown_reduction_bonus > 0:
+		text += "   [CDR] +%.1f%%\n" % (item.cooldown_reduction_bonus * 100)
+	if item.luck_bonus > 0:
+		text += "   [LUCK] +%.1f%%\n" % (item.luck_bonus * 100)
+	return text
+
+func get_item_stats_text_with_diff(new_item: Item, old_item: Item) -> String:
+	"""Shows stats with color coding based on comparison"""
+	var text = ""
+
+	# Helper to get color
+	var get_color = func(new_val: float, old_val: float) -> String:
+		if new_val > old_val:
+			return "#00FF00"  # Green = better
+		elif new_val < old_val:
+			return "#FF0000"  # Red = worse
+		else:
+			return "#FFFFFF"  # White = same
+
+	if new_item.health_bonus > 0 or old_item.health_bonus > 0:
+		var color = get_color.call(new_item.health_bonus, old_item.health_bonus)
+		text += "   [color=%s][HP] +%.0f[/color]\n" % [color, new_item.health_bonus]
+
+	if new_item.damage_bonus > 0 or old_item.damage_bonus > 0:
+		var color = get_color.call(new_item.damage_bonus, old_item.damage_bonus)
+		text += "   [color=%s][DMG] +%.1f%%[/color]\n" % [color, new_item.damage_bonus * 100]
+
+	if new_item.speed_bonus > 0 or old_item.speed_bonus > 0:
+		var color = get_color.call(new_item.speed_bonus, old_item.speed_bonus)
+		text += "   [color=%s][SPD] +%.0f[/color]\n" % [color, new_item.speed_bonus]
+
+	if new_item.crit_chance_bonus > 0 or old_item.crit_chance_bonus > 0:
+		var color = get_color.call(new_item.crit_chance_bonus, old_item.crit_chance_bonus)
+		text += "   [color=%s][CRIT] +%.1f%%[/color]\n" % [color, new_item.crit_chance_bonus * 100]
+
+	if new_item.crit_damage_bonus > 0 or old_item.crit_damage_bonus > 0:
+		var color = get_color.call(new_item.crit_damage_bonus, old_item.crit_damage_bonus)
+		text += "   [color=%s][CRIT DMG] +%.1f%%[/color]\n" % [color, new_item.crit_damage_bonus * 100]
+
+	if new_item.fire_rate_bonus > 0 or old_item.fire_rate_bonus > 0:
+		var color = get_color.call(new_item.fire_rate_bonus, old_item.fire_rate_bonus)
+		text += "   [color=%s][FIRE RATE] +%.1f%%[/color]\n" % [color, new_item.fire_rate_bonus * 100]
+
+	if new_item.armor_bonus > 0 or old_item.armor_bonus > 0:
+		var color = get_color.call(new_item.armor_bonus, old_item.armor_bonus)
+		text += "   [color=%s][ARMOR] +%.1f%%[/color]\n" % [color, new_item.armor_bonus * 100]
+
+	if new_item.cooldown_reduction_bonus > 0 or old_item.cooldown_reduction_bonus > 0:
+		var color = get_color.call(new_item.cooldown_reduction_bonus, old_item.cooldown_reduction_bonus)
+		text += "   [color=%s][CDR] +%.1f%%[/color]\n" % [color, new_item.cooldown_reduction_bonus * 100]
+
+	if new_item.luck_bonus > 0 or old_item.luck_bonus > 0:
+		var color = get_color.call(new_item.luck_bonus, old_item.luck_bonus)
+		text += "   [color=%s][LUCK] +%.1f%%[/color]\n" % [color, new_item.luck_bonus * 100]
+
+	return text
+
 func get_item_stats_text(item: Item) -> String:
 	var text = ""
 	if item.health_bonus > 0:
-		text += "❤️ +%.0f HP\n" % item.health_bonus
+		text += "[HP] +%.0f\n" % item.health_bonus
 	if item.damage_bonus > 0:
-		text += "⚔️ +%.0f%% Damage\n" % (item.damage_bonus * 100)
+		text += "[DMG] +%.1f%%\n" % (item.damage_bonus * 100)
 	if item.speed_bonus > 0:
-		text += "⚡ +%.0f Speed\n" % item.speed_bonus
+		text += "[SPD] +%.0f\n" % item.speed_bonus
 	if item.crit_chance_bonus > 0:
-		text += "💥 +%.1f%% Crit Chance\n" % (item.crit_chance_bonus * 100)
+		text += "[CRIT] +%.1f%%\n" % (item.crit_chance_bonus * 100)
 	if item.crit_damage_bonus > 0:
-		text += "💥 +%.0f%% Crit Damage\n" % (item.crit_damage_bonus * 100)
+		text += "[CRIT DMG] +%.1f%%\n" % (item.crit_damage_bonus * 100)
 	if item.fire_rate_bonus > 0:
-		text += "🔫 +%.0f%% Fire Rate\n" % (item.fire_rate_bonus * 100)
+		text += "[FIRE RATE] +%.1f%%\n" % (item.fire_rate_bonus * 100)
 	if item.armor_bonus > 0:
-		text += "🛡️ +%.1f%% Armor\n" % (item.armor_bonus * 100)
+		text += "[ARMOR] +%.1f%%\n" % (item.armor_bonus * 100)
 	if item.cooldown_reduction_bonus > 0:
-		text += "🔄 +%.1f%% Cooldown Reduction\n" % (item.cooldown_reduction_bonus * 100)
+		text += "[CDR] +%.1f%%\n" % (item.cooldown_reduction_bonus * 100)
 	if item.luck_bonus > 0:
-		text += "🍀 +%.1f%% Luck\n" % (item.luck_bonus * 100)
+		text += "[LUCK] +%.1f%%\n" % (item.luck_bonus * 100)
+	return text
+
+func get_stat_difference_summary(new_item: Item, old_item: Item) -> String:
+	"""Shows only the differences between two items in a clear format"""
+	var text = ""
+	var has_any_difference = false
+
+	# Health difference
+	var health_diff = new_item.health_bonus - old_item.health_bonus
+	if health_diff != 0:
+		has_any_difference = true
+		var color = "#00FF00" if health_diff > 0 else "#FF0000"
+		var sign = "+" if health_diff > 0 else ""
+		text += "[color=%s][HP] %s%.0f[/color]\n" % [color, sign, health_diff]
+
+	# Damage difference
+	var damage_diff = new_item.damage_bonus - old_item.damage_bonus
+	if damage_diff != 0:
+		has_any_difference = true
+		var color = "#00FF00" if damage_diff > 0 else "#FF0000"
+		var sign = "+" if damage_diff > 0 else ""
+		text += "[color=%s][DMG] %s%.1f%%[/color]\n" % [color, sign, damage_diff * 100]
+
+	# Speed difference
+	var speed_diff = new_item.speed_bonus - old_item.speed_bonus
+	if speed_diff != 0:
+		has_any_difference = true
+		var color = "#00FF00" if speed_diff > 0 else "#FF0000"
+		var sign = "+" if speed_diff > 0 else ""
+		text += "[color=%s][SPD] %s%.0f[/color]\n" % [color, sign, speed_diff]
+
+	# Crit chance difference
+	var crit_chance_diff = new_item.crit_chance_bonus - old_item.crit_chance_bonus
+	if crit_chance_diff != 0:
+		has_any_difference = true
+		var color = "#00FF00" if crit_chance_diff > 0 else "#FF0000"
+		var sign = "+" if crit_chance_diff > 0 else ""
+		text += "[color=%s][CRIT] %s%.1f%%[/color]\n" % [color, sign, crit_chance_diff * 100]
+
+	# Crit damage difference
+	var crit_dmg_diff = new_item.crit_damage_bonus - old_item.crit_damage_bonus
+	if crit_dmg_diff != 0:
+		has_any_difference = true
+		var color = "#00FF00" if crit_dmg_diff > 0 else "#FF0000"
+		var sign = "+" if crit_dmg_diff > 0 else ""
+		text += "[color=%s][CRIT DMG] %s%.1f%%[/color]\n" % [color, sign, crit_dmg_diff * 100]
+
+	# Fire rate difference
+	var fire_rate_diff = new_item.fire_rate_bonus - old_item.fire_rate_bonus
+	if fire_rate_diff != 0:
+		has_any_difference = true
+		var color = "#00FF00" if fire_rate_diff > 0 else "#FF0000"
+		var sign = "+" if fire_rate_diff > 0 else ""
+		text += "[color=%s][FIRE RATE] %s%.1f%%[/color]\n" % [color, sign, fire_rate_diff * 100]
+
+	# Armor difference
+	var armor_diff = new_item.armor_bonus - old_item.armor_bonus
+	if armor_diff != 0:
+		has_any_difference = true
+		var color = "#00FF00" if armor_diff > 0 else "#FF0000"
+		var sign = "+" if armor_diff > 0 else ""
+		text += "[color=%s][ARMOR] %s%.1f%%[/color]\n" % [color, sign, armor_diff * 100]
+
+	# Cooldown difference
+	var cooldown_diff = new_item.cooldown_reduction_bonus - old_item.cooldown_reduction_bonus
+	if cooldown_diff != 0:
+		has_any_difference = true
+		var color = "#00FF00" if cooldown_diff > 0 else "#FF0000"
+		var sign = "+" if cooldown_diff > 0 else ""
+		text += "[color=%s][CDR] %s%.1f%%[/color]\n" % [color, sign, cooldown_diff * 100]
+
+	# Luck difference
+	var luck_diff = new_item.luck_bonus - old_item.luck_bonus
+	if luck_diff != 0:
+		has_any_difference = true
+		var color = "#00FF00" if luck_diff > 0 else "#FF0000"
+		var sign = "+" if luck_diff > 0 else ""
+		text += "[color=%s][LUCK] %s%.1f%%[/color]\n" % [color, sign, luck_diff * 100]
+
+	if not has_any_difference:
+		text = "[center][color=#888888]Items have identical stats[/color][/center]\n"
+
 	return text
 
 func get_stat_comparison_text(new_item: Item, old_item: Item) -> String:
@@ -873,15 +1215,20 @@ func get_stat_comparison_text(new_item: Item, old_item: Item) -> String:
 func clear_item_info():
 	selected_item = null
 
+	# Clear comparison nodes
+	clear_comparison_nodes()
+
 	if item_name_label:
 		item_name_label.text = "Select an item to view details"
 		item_name_label.add_theme_color_override("font_color", Color(1, 1, 1, 1))
 
 	if item_description_label:
 		item_description_label.text = ""
+		item_description_label.visible = true
 
 	if item_stats_label:
 		item_stats_label.text = ""
+		item_stats_label.visible = true
 
 	if action_button:
 		action_button.visible = false

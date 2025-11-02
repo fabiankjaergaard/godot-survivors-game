@@ -104,7 +104,7 @@ theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 56
-text = "👤 CHARACTER"
+text = "CHARACTER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -174,7 +174,7 @@ custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
 theme_override_font_sizes/font_size = 20
-text = "❤️ HP:"
+text = "[HP]:"
 
 [node name="HealthBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/HealthRow"]
 custom_minimum_size = Vector2(0, 32)
@@ -201,7 +201,7 @@ custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.6, 0.3, 1)
 theme_override_font_sizes/font_size = 20
-text = "⚔️ Damage:"
+text = "[DMG]:"
 
 [node name="DamageBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/DamageRow"]
 custom_minimum_size = Vector2(0, 32)
@@ -228,7 +228,7 @@ custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5, 0.8, 1, 1)
 theme_override_font_sizes/font_size = 20
-text = "⚡ Speed:"
+text = "[SPD]:"
 
 [node name="SpeedBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/SpeedRow"]
 custom_minimum_size = Vector2(0, 32)
@@ -255,7 +255,7 @@ custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0.3, 1)
 theme_override_font_sizes/font_size = 20
-text = "💥 Crit:"
+text = "[CRIT]:"
 
 [node name="CritBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/CritRow"]
 custom_minimum_size = Vector2(0, 32)
@@ -282,7 +282,7 @@ custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.5, 0.2, 1)
 theme_override_font_sizes/font_size = 20
-text = "🔫 Fire Rate:"
+text = "[FIRE RATE]:"
 
 [node name="FireRateBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/FireRateRow"]
 custom_minimum_size = Vector2(0, 32)
@@ -309,7 +309,7 @@ custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.7, 1, 1)
 theme_override_font_sizes/font_size = 20
-text = "🛡️ Armor:"
+text = "[ARMOR]:"
 
 [node name="ArmorBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/ArmorRow"]
 custom_minimum_size = Vector2(0, 32)
@@ -336,7 +336,7 @@ custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5, 1, 1, 1)
 theme_override_font_sizes/font_size = 20
-text = "🔄 Cooldown:"
+text = "[CDR]:"
 
 [node name="CooldownBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/CooldownRow"]
 custom_minimum_size = Vector2(0, 32)
@@ -363,7 +363,7 @@ custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
 theme_override_font_sizes/font_size = 20
-text = "🍀 Luck:"
+text = "[LUCK]:"
 
 [node name="LuckBar" type="ProgressBar" parent="Panel/StatsPanel/StatsContainer/LuckRow"]
 custom_minimum_size = Vector2(0, 32)
@@ -415,7 +415,7 @@ theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 28
-text = "⚔️ EQUIPMENT"
+text = "EQUIPMENT"
 horizontal_alignment = 1
 
 [node name="WeaponSlot" type="Button" parent="Panel"]
@@ -426,11 +426,11 @@ offset_top = 200.0
 offset_right = 170.0
 offset_bottom = 270.0
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
-text = "⚔️"
+text = "⚔"
 
 [node name="HelmetSlot" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(70, 70)
@@ -440,11 +440,11 @@ offset_top = 278.0
 offset_right = 170.0
 offset_bottom = 348.0
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
-text = "🎩"
+text = "⛑"
 
 [node name="ChestSlot" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(70, 70)
@@ -454,11 +454,11 @@ offset_top = 356.0
 offset_right = 170.0
 offset_bottom = 426.0
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
-text = "👔"
+text = "◈"
 
 [node name="GlovesSlot" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(70, 70)
@@ -468,11 +468,11 @@ offset_top = 434.0
 offset_right = 170.0
 offset_bottom = 504.0
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
-text = "🧤"
+text = "✊"
 
 [node name="LegsSlot" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(70, 70)
@@ -482,11 +482,11 @@ offset_top = 512.0
 offset_right = 170.0
 offset_bottom = 582.0
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
-text = "👖"
+text = "▼"
 
 [node name="AmuletSlot" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(70, 70)
@@ -496,11 +496,11 @@ offset_top = 200.0
 offset_right = 500.0
 offset_bottom = 270.0
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
-text = "📿"
+text = "◆"
 
 [node name="Ring1Slot" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(70, 70)
@@ -510,11 +510,11 @@ offset_top = 278.0
 offset_right = 500.0
 offset_bottom = 348.0
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
-text = "💍"
+text = "◯"
 
 [node name="Ring2Slot" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(70, 70)
@@ -524,11 +524,11 @@ offset_top = 356.0
 offset_right = 500.0
 offset_bottom = 426.0
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
-text = "💍"
+text = "◯"
 
 [node name="ShoesSlot" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(70, 70)
@@ -538,11 +538,11 @@ offset_top = 434.0
 offset_right = 500.0
 offset_bottom = 504.0
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
-text = "👞"
+text = "▲"
 
 [node name="BeltSlot" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(70, 70)
@@ -552,11 +552,11 @@ offset_top = 512.0
 offset_right = 500.0
 offset_bottom = 582.0
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_GearSlot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_GearSlot")
-text = "🔰"
+text = "═"
 
 [node name="ItemInfoPanel" type="Panel" parent="Panel"]
 layout_mode = 1
@@ -585,7 +585,7 @@ theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 28
-text = "⚔️ ITEM COMPARISON"
+text = "ITEM COMPARISON"
 horizontal_alignment = 1
 
 [node name="ItemName" type="Label" parent="Panel/ItemInfoPanel/ItemInfoContainer"]
@@ -651,7 +651,7 @@ theme_override_colors/font_color = Color(1, 0.9, 0.5, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 22
-text = "🎒 INVENTORY"
+text = "INVENTORY"
 
 [node name="InventoryScroll" type="ScrollContainer" parent="Panel/InventoryPanel/InventoryContainer"]
 layout_mode = 2
