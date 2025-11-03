@@ -25,6 +25,14 @@ func _ready():
 	achievements_button.pressed.connect(_on_achievements_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 
+	# Connect hover effects
+	setup_button_hover_effects(start_button)
+	setup_button_hover_effects(characters_button)
+	setup_button_hover_effects(upgrades_button)
+	setup_button_hover_effects(skill_tree_button)
+	setup_button_hover_effects(achievements_button)
+	setup_button_hover_effects(quit_button)
+
 	# Update upgrades button with coin count
 	update_coins_display()
 
@@ -33,6 +41,22 @@ func _ready():
 
 	print("Main Menu loaded")
 	print("Total coins: %d" % SaveSystem.total_coins)
+
+func setup_button_hover_effects(button: Button):
+	# Store original scale
+	var original_scale = button.scale
+
+	# Mouse enter - scale up slightly
+	button.mouse_entered.connect(func():
+		var tween = create_tween()
+		tween.tween_property(button, "scale", original_scale * 1.08, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	)
+
+	# Mouse exit - scale back to normal
+	button.mouse_exited.connect(func():
+		var tween = create_tween()
+		tween.tween_property(button, "scale", original_scale, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	)
 
 func _process(delta):
 	# Handle fullscreen toggle
@@ -55,9 +79,9 @@ func toggle_fullscreen():
 
 func update_coins_display():
 	if SaveSystem.total_coins > 0:
-		upgrades_button.text = "🏪 UPGRADES (💰 %d)" % SaveSystem.total_coins
+		upgrades_button.text = "[ UPGRADES ] (%d coins)" % SaveSystem.total_coins
 	else:
-		upgrades_button.text = "🏪 UPGRADES"
+		upgrades_button.text = "[ UPGRADES ]"
 
 func _on_start_pressed():
 	print("Starting game as Wizard...")
