@@ -24,7 +24,7 @@ var available_unlocks = {
 		"description": "+20 Max HP",
 		"category": "passive",
 		"cost": 100,
-		"icon": "❤",
+		"icon": "H",
 		"effect": {"max_health": 20}
 	},
 	"health_boost_2": {
@@ -32,7 +32,7 @@ var available_unlocks = {
 		"description": "+40 Max HP",
 		"category": "passive",
 		"cost": 250,
-		"icon": "❤❤",
+		"icon": "HH",
 		"effect": {"max_health": 40},
 		"requires": ["health_boost_1"]
 	},
@@ -41,7 +41,7 @@ var available_unlocks = {
 		"description": "+10% Move Speed",
 		"category": "passive",
 		"cost": 150,
-		"icon": "⚡",
+		"icon": "S",
 		"effect": {"move_speed_mult": 0.1}
 	},
 	"speed_boost_2": {
@@ -49,7 +49,7 @@ var available_unlocks = {
 		"description": "+20% Move Speed",
 		"category": "passive",
 		"cost": 300,
-		"icon": "⚡⚡",
+		"icon": "SS",
 		"effect": {"move_speed_mult": 0.2},
 		"requires": ["speed_boost_1"]
 	},
@@ -58,7 +58,7 @@ var available_unlocks = {
 		"description": "+15% Damage",
 		"category": "passive",
 		"cost": 200,
-		"icon": "⚔",
+		"icon": "D",
 		"effect": {"damage_mult": 0.15}
 	},
 	"damage_boost_2": {
@@ -66,7 +66,7 @@ var available_unlocks = {
 		"description": "+30% Damage",
 		"category": "passive",
 		"cost": 400,
-		"icon": "⚔⚔",
+		"icon": "DD",
 		"effect": {"damage_mult": 0.3},
 		"requires": ["damage_boost_1"]
 	},
@@ -75,7 +75,7 @@ var available_unlocks = {
 		"description": "+25% XP Gain",
 		"category": "passive",
 		"cost": 300,
-		"icon": "📚",
+		"icon": "X",
 		"effect": {"xp_mult": 0.25}
 	},
 	"pickup_range": {
@@ -83,7 +83,7 @@ var available_unlocks = {
 		"description": "+50 Pickup Radius",
 		"category": "passive",
 		"cost": 250,
-		"icon": "🧲",
+		"icon": "M",
 		"effect": {"pickup_radius": 50}
 	},
 
@@ -93,7 +93,7 @@ var available_unlocks = {
 		"description": "2x XP gain permanently",
 		"category": "meta",
 		"cost": 1000,
-		"icon": "✨",
+		"icon": "2X",
 		"effect": {"xp_mult": 1.0}
 	},
 	"lucky_drops": {
@@ -101,7 +101,7 @@ var available_unlocks = {
 		"description": "2x item drop chance",
 		"category": "meta",
 		"cost": 800,
-		"icon": "🍀",
+		"icon": "L",
 		"effect": {"drop_rate_mult": 1.0}
 	}
 }

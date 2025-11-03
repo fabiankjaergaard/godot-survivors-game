@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqfvrnfqkk0qr"]
+[gd_scene load_steps=9 format=3 uid="uid://bqfvrnfqkk0qr"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_j3y5c"]
 [ext_resource type="PackedScene" uid="uid://c2qg7mvxvlmqu" path="res://scenes/player.tscn" id="2_ux8kv"]
+[ext_resource type="Texture2D" path="res://tilable-IMG_0044-lush.png" id="2_background"]
 [ext_resource type="PackedScene" uid="uid://upgrade_panel" path="res://scenes/upgrade_panel.tscn" id="3_upgrade"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="4_camera"]
 [ext_resource type="PackedScene" uid="uid://death_screen_001" path="res://scenes/death_screen.tscn" id="5_death"]
@@ -11,12 +12,16 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_j3y5c")
 
-[node name="Background" type="ColorRect" parent="."]
-offset_left = -2000.0
-offset_top = -2000.0
-offset_right = 2000.0
-offset_bottom = 2000.0
-color = Color(0.2, 0.2, 0.2, 1)
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = -10
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1024, 1024)
+
+[node name="BackgroundSprite" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("2_background")
+centered = false
+texture_repeat = 2
 
 [node name="Player" parent="." instance=ExtResource("2_ux8kv")]
 
@@ -285,6 +290,7 @@ text = "• Toxic Pools"
 horizontal_alignment = 2
 
 [node name="DashLabel" type="Label" parent="."]
+visible = false
 offset_left = 10.0
 offset_top = 650.0
 offset_right = 150.0
@@ -296,6 +302,7 @@ theme_override_font_sizes/font_size = 20
 text = "DASH [SPACE]"
 
 [node name="DashCooldownBar" type="ProgressBar" parent="."]
+visible = false
 offset_left = 10.0
 offset_top = 680.0
 offset_right = 150.0
@@ -305,6 +312,7 @@ value = 2.0
 show_percentage = false
 
 [node name="UltimateLabel" type="Label" parent="."]
+visible = false
 offset_left = 160.0
 offset_top = 650.0
 offset_right = 350.0
@@ -316,6 +324,7 @@ theme_override_font_sizes/font_size = 20
 text = "ULTIMATE [R]"
 
 [node name="UltimateCooldownBar" type="ProgressBar" parent="."]
+visible = false
 offset_left = 160.0
 offset_top = 680.0
 offset_right = 350.0
@@ -325,6 +334,7 @@ value = 10.0
 show_percentage = false
 
 [node name="DebugLevelUpButton" type="Button" parent="."]
+visible = false
 offset_left = 550.0
 offset_top = 10.0
 offset_right = 730.0
@@ -334,6 +344,7 @@ theme_override_font_sizes/font_size = 20
 text = "DEBUG: Level Up"
 
 [node name="DebugDieButton" type="Button" parent="."]
+visible = false
 offset_left = 740.0
 offset_top = 10.0
 offset_right = 920.0
